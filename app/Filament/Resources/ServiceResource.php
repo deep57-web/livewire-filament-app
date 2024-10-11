@@ -16,6 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\Action;
 
 use function Laravel\Prompts\select;
 
@@ -54,6 +55,10 @@ class ServiceResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Action::make('alertButton')
+                    ->label('Show Alert')  // Button label
+                    ->action(fn() => self::triggerAlert()) // Call a static method
+                    ->button(), // Makes it a button
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
